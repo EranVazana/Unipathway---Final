@@ -1,0 +1,81 @@
+// minSekem values are on the Sekem scale produced by sekemCalculator:
+//   sekem = bagrutAvg(0-100) × bagrutWeight + psychometric(200-800) × psychometricWeight
+// With weights summing to 1, scores typically land in the ~380-520 range.
+//
+// Original thresholds from the uploaded file were preserved.
+// New institute thresholds are mock 2024 values created to keep every institute connected to at least one department.
+
+const admissionThresholds = [
+  { thresholdId: 1, departmentId: 1, year: 2023, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 450 },
+  { thresholdId: 2, departmentId: 1, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 460 },
+  { thresholdId: 3, departmentId: 2, year: 2023, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.35, psychometricWeight: 0.65 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 490 },
+  { thresholdId: 4, departmentId: 2, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.35, psychometricWeight: 0.65 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 500 },
+  { thresholdId: 5, departmentId: 3, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [], minSekem: 420 },
+  { thresholdId: 6, departmentId: 4, year: 2023, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.33, psychometricWeight: 0.67 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 500 },
+  { thresholdId: 7, departmentId: 4, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.33, psychometricWeight: 0.67 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 510 },
+  { thresholdId: 8, departmentId: 5, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 425 },
+  { thresholdId: 9, departmentId: 6, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 430 },
+  { thresholdId: 10, departmentId: 7, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 445 },
+  { thresholdId: 11, departmentId: 8, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 385 },
+  { thresholdId: 12, departmentId: 9, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 400 },
+  { thresholdId: 13, departmentId: 10, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 470 },
+  { thresholdId: 14, departmentId: 11, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 435 },
+  { thresholdId: 15, departmentId: 12, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 470 },
+  { thresholdId: 16, departmentId: 13, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 17, departmentId: 14, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 410 },
+  { thresholdId: 18, departmentId: 15, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 425 },
+  { thresholdId: 19, departmentId: 16, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.55, psychometricWeight: 0.45 }, sekemBonuses: [], minSekem: 370 },
+  { thresholdId: 20, departmentId: 17, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 435 },
+  { thresholdId: 21, departmentId: 18, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 22, departmentId: 19, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 470 },
+  { thresholdId: 23, departmentId: 20, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 24, departmentId: 21, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 470 },
+  { thresholdId: 25, departmentId: 22, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 390 },
+  { thresholdId: 26, departmentId: 23, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 27, departmentId: 24, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 28, departmentId: 25, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 435 },
+  { thresholdId: 29, departmentId: 26, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 470 },
+  { thresholdId: 30, departmentId: 27, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 31, departmentId: 28, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.55, psychometricWeight: 0.45 }, sekemBonuses: [], minSekem: 370 },
+  { thresholdId: 32, departmentId: 29, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 470 },
+  { thresholdId: 33, departmentId: 30, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 410 },
+  { thresholdId: 34, departmentId: 31, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 410 },
+  { thresholdId: 35, departmentId: 32, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 425 },
+  { thresholdId: 36, departmentId: 33, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 37, departmentId: 34, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 445 },
+  { thresholdId: 38, departmentId: 35, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 39, departmentId: 36, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 410 },
+  { thresholdId: 40, departmentId: 37, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }, { condition: '5-unit Physics', points: 8 }], minSekem: 445 },
+  { thresholdId: 41, departmentId: 38, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 390 },
+  { thresholdId: 42, departmentId: 39, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 390 },
+  { thresholdId: 43, departmentId: 40, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 390 },
+  { thresholdId: 44, departmentId: 41, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.55, psychometricWeight: 0.45 }, sekemBonuses: [], minSekem: 370 },
+  { thresholdId: 45, departmentId: 42, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.5, psychometricWeight: 0.5 }, sekemBonuses: [], minSekem: 380 },
+  { thresholdId: 46, departmentId: 43, year: 2024, sekemType: 'quantitative', sekemWeights: { bagrutWeight: 0.4, psychometricWeight: 0.6 }, sekemBonuses: [{ condition: '5-unit Math', points: 10 }], minSekem: 420 },
+  { thresholdId: 47, departmentId: 44, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 48, departmentId: 45, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 49, departmentId: 46, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 50, departmentId: 47, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 51, departmentId: 48, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 52, departmentId: 49, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 365 },
+  { thresholdId: 53, departmentId: 50, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 54, departmentId: 51, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 55, departmentId: 52, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 56, departmentId: 53, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 57, departmentId: 54, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 390 },
+  { thresholdId: 58, departmentId: 55, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 59, departmentId: 56, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 60, departmentId: 57, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 61, departmentId: 58, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.55, psychometricWeight: 0.45 }, sekemBonuses: [], minSekem: 370 },
+  { thresholdId: 62, departmentId: 59, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.55, psychometricWeight: 0.45 }, sekemBonuses: [], minSekem: 370 },
+  { thresholdId: 63, departmentId: 60, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 64, departmentId: 61, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 65, departmentId: 62, year: 2024, sekemType: 'verbal', sekemWeights: { bagrutWeight: 0.45, psychometricWeight: 0.55 }, sekemBonuses: [{ condition: '5-unit English', points: 8 }], minSekem: 390 },
+  { thresholdId: 66, departmentId: 63, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 },
+  { thresholdId: 67, departmentId: 64, year: 2024, sekemType: 'general', sekemWeights: { bagrutWeight: 0.6, psychometricWeight: 0.4 }, sekemBonuses: [], minSekem: 350 }
+];
+
+let nextId = 68;
+function getNextId() { return nextId++; }
+
+module.exports = { admissionThresholds, getNextId };
