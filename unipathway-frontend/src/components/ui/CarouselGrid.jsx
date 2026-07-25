@@ -6,7 +6,7 @@ export default function CarouselGrid({ page, dir, children }) {
 
   useEffect(() => {
     if (page === prevRef.current.page) {
-      // Same page but children changed (e.g. data loaded) — update in place
+      // Same page but children changed (e.g. data loaded) - update in place
       setSlots([{ id: page, dir, content: children }]);
       return;
     }

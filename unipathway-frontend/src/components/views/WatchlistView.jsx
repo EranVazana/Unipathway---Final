@@ -121,14 +121,14 @@ export default function WatchlistView({
         );
       }
     },
-    { key: 'userSekem', label: 'Your Sekem', render: (row) => row.userSekem?.toFixed(2) ?? '—' },
+    { key: 'userSekem', label: 'Your Sekem', render: (row) => row.userSekem?.toFixed(2) ?? '-' },
     {
       key: 'minSekem',
       label: 'Min Sekem',
       render: (row) => {
         const dept = departments.find((d) => d.departmentId === row.departmentId);
         const threshold = dept ? latestThreshold(dept.departmentId) : null;
-        return threshold ? threshold.minSekem : '—';
+        return threshold ? threshold.minSekem : '-';
       }
     },
     {

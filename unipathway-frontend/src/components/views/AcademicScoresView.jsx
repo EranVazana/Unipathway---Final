@@ -367,7 +367,7 @@ export default function AcademicScoresView({ targetUserId, onSaved } = {}) {
                 onChange={(e) => { setSelectedSubject(e.target.value); setNewSubjectError(''); }}
                 disabled={isSaving}
               >
-                <option value="">— Select a subject —</option>
+                <option value="">- Select a subject -</option>
                 {available.map((k) => (
                   <option key={k} value={k}>{SUBJECT_LABELS[k]}</option>
                 ))}

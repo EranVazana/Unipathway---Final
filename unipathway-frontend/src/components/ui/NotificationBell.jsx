@@ -39,7 +39,7 @@ export default function NotificationBell() {
   return (
     <div className="notif-bell-wrap" ref={ref}>
 
-      {/* Bell icon — no button wrapper, just the SVG + badge */}
+      {/* Bell icon - no button wrapper, just the SVG + badge */}
       <div className="notif-bell-trigger" onClick={handleBellClick}>
         <svg
           width="25" height="25"

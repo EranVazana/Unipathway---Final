@@ -237,7 +237,7 @@ export default function UniversitiesView({
         )}
       </div>
 
-      {/* Add University — admin/editor only */}
+      {/* Add University - admin/editor only */}
       {canManage && (
         <div className="admin-controls">
           <button type="button" onClick={() => { setAddForm(emptyForm); setAddFormError(''); setShowAddForm(true); }}>

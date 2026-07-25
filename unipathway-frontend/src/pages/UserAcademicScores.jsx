@@ -32,7 +32,7 @@ export default function UserAcademicScores() {
   return (
     <div className="user-academic-scores-page">
       <button type="button" onClick={() => navigate('/users')}>← Back to Users</button>
-      <h1>Academic Scores — {targetUser.firstName} {targetUser.lastName}</h1>
+      <h1>Academic Scores - {targetUser.firstName} {targetUser.lastName}</h1>
       <AcademicScoresView targetUserId={Number(id)} />
     </div>
   );

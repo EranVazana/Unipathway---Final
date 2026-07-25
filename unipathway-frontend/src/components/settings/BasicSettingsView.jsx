@@ -36,7 +36,7 @@ export default function BasicSettingsView() {
     setSaveSuccess(false);
     setSaveError('');
 
-    // Live theme preview — apply immediately so the user sees it before saving
+    // Live theme preview - apply immediately so the user sees it before saving
     if (name === 'theme') {
       document.documentElement.setAttribute('data-theme', value);
     }

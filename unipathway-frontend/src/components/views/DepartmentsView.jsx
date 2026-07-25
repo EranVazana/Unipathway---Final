@@ -114,7 +114,7 @@ function DepartmentFormModal({ title, form, onChange, onSubmit, onClose, error, 
         <button className="card-modal__close" onClick={onClose} aria-label="Close">✕</button>
         <h2 className="card-modal__title">{title}</h2>
 
-        {/* Tabs — only show threshold tab when editing */}
+        {/* Tabs - only show threshold tab when editing */}
         {dept && (
           <div className="dept-modal-tabs">
             <button type="button" className={activeTab === 'details' ? 'dept-modal-tab--active' : ''} onClick={() => setActiveTab('details')}>Details</button>
@@ -157,7 +157,7 @@ function DepartmentFormModal({ title, form, onChange, onSubmit, onClose, error, 
               </div>
             </div>
 
-            {/* Threshold section — only on Add, shown as right column */}
+            {/* Threshold section - only on Add, shown as right column */}
             {!dept && (
               <div className="dept-form-right">
                 <p className="dept-form-right__label">Initial Admission Threshold</p>
@@ -510,7 +510,7 @@ export default function DepartmentsView({
         )}
       </div>
 
-      {/* Add Department form — admin/editor only */}
+      {/* Add Department form - admin/editor only */}
       {canManage && (
         <div className="admin-controls">
           <button type="button" onClick={() => { setAddForm(emptyForm(universities)); setAddFormError(''); setShowAddForm(true); }}>

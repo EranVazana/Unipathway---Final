@@ -61,7 +61,7 @@ class UserWatchlist {
   // Recalculates sekem for all watchlist entries of a user after scores change
   static async recalculateForUser(userId, scoresEntry, thresholds) {
     const entries = await UserWatchlist.findByUser(userId);
-    const { calculateUserSekem, deriveSekemStatus, getLatestThreshold } = require('../utils/sekemCalculator');
+    const { calculateUserSekem, deriveSekemStatus, getLatestThreshold } = require('../src/utils/sekemCalculator');
     for (const entry of entries) {
       const threshold = getLatestThreshold(thresholds, entry.departmentId);
       const sekemStatus = deriveSekemStatus(scoresEntry, threshold);

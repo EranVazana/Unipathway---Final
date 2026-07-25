@@ -52,7 +52,7 @@ function SingleGauge({ label, value, max }) {
 
   const cx = 100; const cy = 95; const r = 70;
 
-  // Arc from left (180°) to angle, in SVG: x=cx+r*cos(a), y=cy-r*sin(a) — note minus because SVG y is flipped
+  // Arc from left (180°) to angle, in SVG: x=cx+r*cos(a), y=cy-r*sin(a) - note minus because SVG y is flipped
   const arcX = (a) => cx + r * Math.cos((a * Math.PI) / 180);
   const arcY = (a) => cy - r * Math.sin((a * Math.PI) / 180);
 
@@ -118,7 +118,7 @@ function SekemGauge({ watchlist, latestThreshold }) {
         const max = data ? Math.ceil(Math.max(data.maxMin, avg) / 100) * 100 : DEFAULT_MAX;
         const label = data ? `Avg ${data.vals.length} Dept${data.vals.length !== 1 ? 's' : ''}` : 'No Data';
         return (
-          <Card key={type} title={`Sekem — ${type.charAt(0).toUpperCase() + type.slice(1)}`}>
+          <Card key={type} title={`Sekem - ${type.charAt(0).toUpperCase() + type.slice(1)}`}>
             <SingleGauge
               label={label}
               value={avg}

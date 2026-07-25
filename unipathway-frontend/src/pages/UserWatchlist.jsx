@@ -84,7 +84,7 @@ export default function UserWatchlist() {
       key: 'university', label: 'University',
       render: (row) => {
         const dept = departments.find((d) => d.departmentId === row.departmentId);
-        return dept ? universityName(dept.universityId) : '—';
+        return dept ? universityName(dept.universityId) : '-';
       }
     },
     { key: 'status', label: 'Status' },
@@ -118,13 +118,13 @@ export default function UserWatchlist() {
         );
       }
     },
-    { key: 'userSekem', label: 'Sekem Score', render: (row) => row.userSekem?.toFixed(2) ?? '—' },
+    { key: 'userSekem', label: 'Sekem Score', render: (row) => row.userSekem?.toFixed(2) ?? '-' },
     {
       key: 'minSekem', label: 'Min Sekem',
       render: (row) => {
         const dept = departments.find((d) => d.departmentId === row.departmentId);
         const threshold = dept ? latestThreshold(dept.departmentId) : null;
-        return threshold ? threshold.minSekem : '—';
+        return threshold ? threshold.minSekem : '-';
       }
     },
     {
@@ -147,7 +147,7 @@ export default function UserWatchlist() {
   return (
     <div className="user-watchlist-page">
       <button type="button" onClick={() => navigate('/users')}>← Back to Users</button>
-      <h1>Watchlist — {targetUser.firstName} {targetUser.lastName}</h1>
+      <h1>Watchlist - {targetUser.firstName} {targetUser.lastName}</h1>
 
       {confirmTarget && (
         <ConfirmDialog

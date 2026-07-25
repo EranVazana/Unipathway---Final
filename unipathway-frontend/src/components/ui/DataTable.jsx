@@ -1,4 +1,4 @@
-// columns: [{ key, label, render? }] — render(row) lets callers format a cell (e.g. status badges)
+// columns: [{ key, label, render? }] - render(row) lets callers format a cell (e.g. status badges)
 // rows: array of data objects from the backend
 export default function DataTable({ columns, rows, emptyMessage = 'No data to display.', minRows }) {
   if (!rows || rows.length === 0) {

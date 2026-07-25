@@ -345,7 +345,7 @@ export default function Login() {
           />
         </div>
 
-        {/* Right: form — swaps between login and signup */}
+        {/* Right: form - swaps between login and signup */}
         {mode === 'login'
           ? <LoginForm  onSwitchToSignup={() => setMode('signup')} />
           : <SignupForm onSwitchToLogin={()  => setMode('login')}  />

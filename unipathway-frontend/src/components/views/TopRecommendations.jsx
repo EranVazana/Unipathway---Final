@@ -61,7 +61,7 @@ export default function TopRecommendations({ watchlist, departments, universityN
       {almostThere.length > 0 && (
         <section className="recommendations-section">
           <h3 className="recommendations-section__title">🎯 Almost There</h3>
-          <p className="recommendations-section__hint">You&apos;re just below the threshold — a small boost could get you in.</p>
+          <p className="recommendations-section__hint">You&apos;re just below the threshold - a small boost could get you in.</p>
           <div className="rec-list">
             {almostThere.map((r) => (
               <RecommendationCard key={r.departmentId} row={r} academicScores={academicScores} />
@@ -85,7 +85,7 @@ export default function TopRecommendations({ watchlist, departments, universityN
       {passing.length > 0 && (
         <section className="recommendations-section">
           <h3 className="recommendations-section__title">✅ You Qualify</h3>
-          <p className="recommendations-section__hint">Your Sekem meets or exceeds the minimum — sorted by how comfortably you pass.</p>
+          <p className="recommendations-section__hint">Your Sekem meets or exceeds the minimum - sorted by how comfortably you pass.</p>
           <div className="rec-list">
             {passing.map((r) => (
               <RecommendationCard key={r.departmentId} row={r} academicScores={academicScores} />
@@ -136,7 +136,7 @@ function computeImprovement(row, academicScores) {
   const bagrutScores = academicScores.bagrutScores || {};
   const psycho = academicScores.psychometricScores || {};
 
-  // Bonus opportunities — bonuses the user doesn't yet qualify for
+  // Bonus opportunities - bonuses the user doesn't yet qualify for
   const missedBonuses = (row.bonuses || []).filter(
     (b) => !qualifiesForBonus(b.condition, bagrutScores)
   );
@@ -212,7 +212,7 @@ function RecommendationCard({ row, academicScores, showImprovement }) {
                   {improvement.missedBonuses.map((b) => (
                     <p key={b.condition} className="rec-improvement__bonus-row">
                       <span className="rec-improvement__dot">•</span>
-                      <span>Meet <em>{b.condition}</em> — <span className="rec-improvement__pts">+{b.points} pts</span></span>
+                      <span>Meet <em>{b.condition}</em> - <span className="rec-improvement__pts">+{b.points} pts</span></span>
                     </p>
                   ))}
                 </div>

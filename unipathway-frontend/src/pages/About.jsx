@@ -9,7 +9,7 @@ const FEATURES = [
   {
     icon: '📊',
     title: 'Academic Score Tracking',
-    description: 'Enter your Bagrut and Psychometric scores once — we calculate your Sekem automatically.'
+    description: 'Enter your Bagrut and Psychometric scores once - we calculate your Sekem automatically.'
   },
   {
     icon: '🔖',
@@ -29,7 +29,7 @@ const FEATURES = [
   {
     icon: '⚡',
     title: 'Built for Speed',
-    description: 'Fast, responsive, and works on any device — whether you&apos;re on a laptop or your phone.'
+    description: 'Fast, responsive, and works on any device - whether you&apos;re on a laptop or your phone.'
   }
 ];
 
@@ -47,7 +47,7 @@ export default function About() {
         <p className="about-hero__desc">
           UniPathway helps Israeli students make confident university decisions.
           We combine your academic scores with real admission data to show you
-          exactly where you stand — so you can apply smarter, not harder.
+          exactly where you stand - so you can apply smarter, not harder.
         </p>
         <button type="button" className="btn-primary" onClick={() => navigate('/home')}>
           Get Started

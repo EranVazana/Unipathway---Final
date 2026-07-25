@@ -153,7 +153,7 @@ export default function CompareView({ departments, universities, universityName,
               <tr>
                 <td className="compare-table__label">Faculty</td>
                 {compareDepts.map(({ dept }) => (
-                  <td key={dept.departmentId}>{dept.faculty || '—'}</td>
+                  <td key={dept.departmentId}>{dept.faculty || '-'}</td>
                 ))}
               </tr>
               <tr>
@@ -164,7 +164,7 @@ export default function CompareView({ departments, universities, universityName,
                   const isLowest = threshold?.minSekem === min && vals.length > 1;
                   return (
                     <td key={dept.departmentId} className={isLowest ? 'compare-table__cell--best' : ''}>
-                      {threshold ? <strong>{threshold.minSekem}</strong> : '—'}
+                      {threshold ? <strong>{threshold.minSekem}</strong> : '-'}
                     </td>
                   );
                 })}
@@ -172,13 +172,13 @@ export default function CompareView({ departments, universities, universityName,
               <tr>
                 <td className="compare-table__label">Sekem Type</td>
                 {compareDepts.map(({ dept, threshold }) => (
-                  <td key={dept.departmentId}>{threshold?.sekemType || '—'}</td>
+                  <td key={dept.departmentId}>{threshold?.sekemType || '-'}</td>
                 ))}
               </tr>
               <tr>
                 <td className="compare-table__label">Year</td>
                 {compareDepts.map(({ dept, threshold }) => (
-                  <td key={dept.departmentId}>{threshold?.year || '—'}</td>
+                  <td key={dept.departmentId}>{threshold?.year || '-'}</td>
                 ))}
               </tr>
               {user?.userRole === 'user' && (
@@ -198,7 +198,7 @@ export default function CompareView({ departments, universities, universityName,
                               {passed ? `(+${(userSekem - minSekem).toFixed(0)})` : `(${(userSekem - minSekem).toFixed(0)})`}
                             </span>}
                           </span>
-                        ) : '—'}
+                        ) : '-'}
                       </td>
                     );
                   })}
@@ -207,7 +207,7 @@ export default function CompareView({ departments, universities, universityName,
               <tr>
                 <td className="compare-table__label">Description</td>
                 {compareDepts.map(({ dept }) => (
-                  <td key={dept.departmentId} className="compare-table__desc">{dept.description || '—'}</td>
+                  <td key={dept.departmentId} className="compare-table__desc">{dept.description || '-'}</td>
                 ))}
               </tr>
               {user?.userRole === 'user' && (
