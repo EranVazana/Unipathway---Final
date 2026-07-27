@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000/api';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
 
 // Reads the logged-in user from sessionStorage (per-tab, so each tab is its own session) so every request can identify itself
 // to the backend via x-user-id / x-user-role (the backend has no real tokens).

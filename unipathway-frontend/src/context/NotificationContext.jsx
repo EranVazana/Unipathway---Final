@@ -5,7 +5,32 @@ import { apiClient } from '../services/apiClient';
 
 const NotificationContext = createContext(null);
 
-const SOCKET_URL = process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3000';
+// Resolves the Socket.IO server URL.
+// - If REACT_APP_API_BASE_URL is an explicit absolute URL, use its origin.
+// - Otherwise (relative path like '/api', or unset), decide by environment:
+//   - Local dev (CRA dev server also binds to :3000) -> explicitly target the
+//     backend's default port instead of window.location.origin, which would
+//     point back at the frontend dev server itself.
+//   - Everywhere else (production) -> window.location.origin, since the
+//     Express backend serves both the API and the built frontend.
+function resolveSocketUrl() {
+  const base = process.env.REACT_APP_API_BASE_URL;
+
+  if (base && /^https?:\/\//i.test(base)) {
+    return base.replace(/\/api\/?$/, '');
+  }
+
+  const isLocalDev = typeof window !== 'undefined' &&
+    ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
+  if (isLocalDev) {
+    return 'http://localhost:3000';
+  }
+
+  return window.location.origin;
+}
+
+const SOCKET_URL = resolveSocketUrl();
 
 export function NotificationProvider({ children }) {
   const { user } = useAuth();
