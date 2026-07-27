@@ -2,6 +2,7 @@ require('dotenv').config();
 const http     = require('http');
 const express  = require('express');
 const cors     = require('cors');
+const path     = require('path');
 const db       = require('./database/connection');
 const seed     = require('./database/seeder');
 const logger   = require('./middleware/logger');
@@ -38,8 +39,18 @@ app.use('/api/settings',             settingsRouter);
 app.use('/api/notifications',        notificationsRouter);
 app.use('/api/ai',                   aiRouter);
 
-app.use((req, res) => {
+// Serve React build as static files
+const buildPath = path.join(__dirname, '../../unipathway-frontend/build');
+app.use(express.static(buildPath));
+
+// API 404 — unknown /api/* routes return JSON
+app.use('/api', (req, res) => {
   res.status(404).json({ success: false, data: null, error: { code: 'NOT_FOUND', message: `Route ${req.method} ${req.originalUrl} not found.`, details: {} } });
+});
+
+// Catch-all — serve index.html for all non-API routes (client-side routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
 app.use((err, req, res, next) => {
   console.error(err.stack);
