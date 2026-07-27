@@ -1,7 +1,8 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
+const BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'http://localhost:3000/api'
+  : '/api';
 
-// Reads the logged-in user from sessionStorage (per-tab, so each tab is its own session) so every request can identify itself
-// to the backend via x-user-id / x-user-role (the backend has no real tokens).
+
 function getAuthHeaders() {
   const stored = sessionStorage.getItem('unipathway_user');
   if (!stored) return {};
@@ -17,8 +18,6 @@ function getAuthHeaders() {
   }
 }
 
-// Core request helper. Unwraps the backend's { success, data, error } envelope
-// and throws on failure so callers can use try/catch instead of checking success each time.
 async function request(path, { method = 'GET', body } = {}) {
   let response;
   try {

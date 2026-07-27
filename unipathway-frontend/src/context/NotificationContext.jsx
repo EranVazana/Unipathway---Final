@@ -14,20 +14,9 @@ const NotificationContext = createContext(null);
 //   - Everywhere else (production) -> window.location.origin, since the
 //     Express backend serves both the API and the built frontend.
 function resolveSocketUrl() {
-  const base = process.env.REACT_APP_API_BASE_URL;
-
-  if (base && /^https?:\/\//i.test(base)) {
-    return base.replace(/\/api\/?$/, '');
-  }
-
   const isLocalDev = typeof window !== 'undefined' &&
     ['localhost', '127.0.0.1'].includes(window.location.hostname);
-
-  if (isLocalDev) {
-    return 'http://localhost:3000';
-  }
-
-  return window.location.origin;
+  return isLocalDev ? 'http://localhost:3000' : window.location.origin;
 }
 
 const SOCKET_URL = resolveSocketUrl();
